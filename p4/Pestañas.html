@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="nav.js"></script>
+<style type="text/css">
+  .content {
+    display: none;
+  }
+
+  .current {
+    display:block;
+  }
+
+  .tab {
+    background: #d9d9d9;
+    font: bold 12px Arial;
+    padding: 3px 30px;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+    cursor: pointer;
+  }
+
+  .currenttab {
+    background: #eee;
+    cursor: default;
+  }
+
+  header {
+     font: bold 12px Arial;
+  }
+</style>
+  </head>
+  <body>
+    <header>
+      <h1>Jugando con Pestañas</h1>
+    </header>
+    <nav id="main">
+      <span class="tab currenttab">Inicio</span>
+      <span class="tab">Noticias</span>
+      <span class="tab">Acerca De</span>
+    </nav>
+    <section class="content current">
+      <p>Esta es la página de inicio de la web de nuestra empresa</p>
+            <p>Nos gusta usar
+            	<a href="http://www.w3.org/html/logo/">
+            		<img border="0" src="http://www.w3.org/html/logo/downloads/HTML5_Logo_64.png" alt="HTML5 logo" />
+            	</a>
+            </p>
+    </section>
+
+    <section class="content">
+      <p>El proceso de estandarización de HTML5 sigue avanzando a buen ritmo. Toda la información, en la web del <a href="http://www.w3.org/TR/html5/">W3C</a>.</p>
+            <p>Interesante estudio sobre HTML5 y video en <a href="http://www.genbetadev.com/desarrollo-web/interesante-estudio-sobre-html5-y-video">
+            Genbetadev</a></p>
+    </section>
+
+    <section class="content">
+      <p>Este ejemplo ha sido realizado por los profesores de Aplicaciones Multimedia</p>
+            <p>3er curso de Grado en Ingeniería de Sistemas Audiovisuales - 2012</p>
+    </section>
+
+    <footer>
+			<figure>
+				<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/es/">
+				<img alt="Licencia Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/es/88x31.png" /></a>
+				<figcaption>Este <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">obra</span>
+				está bajo una <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/es/">licencia Creative Commons
+				Reconocimiento-CompartirIgual 3.0 España</a>.</figcaption>
+			</figure>
+			<br />
+		</footer>
+
+  </body>
+</html>
