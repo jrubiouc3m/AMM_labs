@@ -1,0 +1,86 @@
+
+window.onload = function() {
+  subs = [[100,40000,"comienza"],[42000,44000,"sigue"],[107250,110500,"Esta hoja tiene un pasado oscuro."],[111800,115800,"Ha derramado mucha sangre inocente."], [118000,121450,"Eres una tonta por viajar sola, sin ninguna preparación."],[121750,124800,"Tienes suerte de que aún corra sangre por tus venas."]];
+  subindex = 0;
+  changed= false;
+  userChangedPosition= false;
+
+  vidEl= document.getElementById("mivideo");
+  subtitleEl= document.getElementById("subt");
+  indiceEl= document.getElementById("indice");
+  totalEl= document.getElementById("total");
+  langEl= document.getElementById("lang");
+  fwEl= document.getElementById("fwBut");
+  bkEl= document.getElementById("bkBut");
+  comboLangEl= document.getElementById("comboLang");
+  langEl.value= comboLangEl.getElementsByTagName("option")[comboLangEl.selectedIndex].value;
+  
+  if(window.XMLHttpRequest)
+      peticion = new XMLHttpRequest();
+  else
+      peticion = new ActiveXObject("Microsoft.XMLHTTP");
+
+  obtenerSubs();
+  indiceEl.value= subindex;
+  totalEl.value= subs.length-1;
+  
+  vidEl.addEventListener("timeupdate", cambiasubtitulos);
+  vidEl.addEventListener("seeking", function(){userChangedPosition= true});
+  fwEl.addEventListener("click", function(){if (subindex<subs.length-2){vidEl.currentTime= subs[subindex+1][0]/1000;userChangedPosition=true;}});
+  bkEl.addEventListener("click", function(){if (subindex>0){vidEl.currentTime= subs[subindex-1][0]/1000;userChangedPosition=true;}});
+  comboLangEl.addEventListener("change",function(){ langEl.value= comboLangEl.getElementsByTagName("option")[comboLangEl.selectedIndex].value; obtenerSubs();});
+
+}
+  
+  function obtenerSubs(){
+    var url="sintel_"+langEl.value+".srt";
+    peticion.open("GET",url,true);
+    peticion.send("");
+    peticion.onreadystatechange = procesaRespuesta;
+  }
+  
+  function procesaRespuesta(){
+    if ((peticion.status==200) && (peticion.readyState==4)){
+      subs= parseSrt(peticion.responseText);
+      totalEl.value= subs.length-1;
+    }
+
+  }
+  
+  function cambiasubtitulos(){
+    if (userChangedPosition){
+      subindex= -1;
+      subtitleEl.innerHTML="</span>";
+      changed= false;
+      for (var i in subs){
+        if (vidEl.currentTime < subs[i][0]/1000)
+          break;
+        subindex++;
+      }
+      if(subindex<0) subindex= 0;
+      userChangedPosition=false;
+      indiceEl.value= subindex;
+    }  
+
+    else{
+      if (subindex<subs.length){
+         if (vidEl.currentTime > subs[subindex][0]/1000){
+           if (vidEl.currentTime > subs[subindex][1]/1000){
+             if (changed) {
+                subindex++;
+                indiceEl.value= subindex;
+                changed= false;
+                subtitleEl.innerHTML="</span>";
+             }
+           }
+           else{
+             if (!changed){
+               changed= true;
+               subtitleEl.innerHTML=subs[subindex][2]+"</span>";
+             }
+           }
+        }
+      }
+    }
+  }
+
