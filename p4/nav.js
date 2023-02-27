@@ -7,6 +7,7 @@ var tabValues = ["<p>Esta es la página de inicio de la web de nuestra empresa</
 // Añadir el texto al span el valor de tabNanes[i]
 
 
+
 // Acceder a los elementos SPAN
 var nav = document.getElementById("main");
 tabs = nav.getElementsByTagName("span");
